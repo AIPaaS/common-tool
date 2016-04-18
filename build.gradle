@@ -96,7 +96,8 @@ sourceSets {
 }
 
 ext {
-	moduleMode="-SNAPSHOT";
+	//moduleMode="-SNAPSHOT";
+	moduleMode="";
 	moduleName="ipaas-common";
 	moduleVersion="0.3"+moduleMode
 	publishUserName = "devadm"
