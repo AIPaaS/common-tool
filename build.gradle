@@ -96,8 +96,8 @@ sourceSets {
 }
 
 ext {
-	//moduleMode="-SNAPSHOT";
-	moduleMode="";
+	moduleMode="-SNAPSHOT";
+	//moduleMode="";
 	moduleName="ipaas-common";
 	moduleVersion="0.3"+moduleMode
 	publishUserName = "devadm"
@@ -114,7 +114,7 @@ dependencies{
 	compile "org.apache.logging.log4j:log4j-slf4j-impl:2.2"
 	compile "org.apache.logging.log4j:log4j-1.2-api:2.2"
 	
-	compile 'com.google.code.gson:gson:2.3.1'
+	compile 'com.google.code.gson:gson:2.6.2'
 	
 	compile "com.esotericsoftware.kryo:kryo:2.24.0"
 	compile "de.javakaffee:kryo-serializers:0.27"
@@ -186,7 +186,7 @@ publishing {
   						delegate.dependency {
                                 delegate.groupId("com.google.code.gson")
                                 delegate.artifactId("gson")
-                                delegate.version("2.3.1")
+                                delegate.version("2.6.2")
                         }     
   						delegate.dependency {
                                 delegate.groupId("com.esotericsoftware.kryo")

@@ -14,6 +14,7 @@ import com.ai.paas.ipaas.serialize.impl.java.JavaSerialization;
 import com.ai.paas.ipaas.serialize.impl.kryo.KryoFactory;
 import com.ai.paas.ipaas.serialize.impl.kryo.KryoSerialization;
 import com.ai.paas.ipaas.serialize.impl.nativejava.NativeJavaSerialization;
+import com.google.gson.Gson;
 
 /**
  * 先根据spring定义的实现来序列化和反序列化 避免放开方法后谁不小心更改了系列化的机制
@@ -126,5 +127,8 @@ public class SerializeUtil {
 
 	public static void main(String[] args) throws Exception {
 		SerializeUtil.register(String.class);
+		Throwable e=new Exception("this is a test for gson stackoverflow!");
+		Gson gson=new Gson();
+		System.out.println(gson.toJson(e));
 	}
 }
