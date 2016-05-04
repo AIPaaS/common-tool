@@ -7,6 +7,11 @@ public class PaaSConstant {
 	public static final String CHARSET_GBK18030 = "GB18030";
 	public static final String UNIX_SEPERATOR = "/";
 	public static final int ERROR_RESULT = -1;
+	
+	/**
+	 * 远程调用成功
+	 */
+	public static final String RPC_CALL_OK = "000000";
 
 	public static final class ExceptionCode {
 		// 系统级异常[其它系统级异常，未知异常]900000-999999系统异常
