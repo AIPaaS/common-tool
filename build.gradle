@@ -123,6 +123,7 @@ dependencies{
     compile 'commons-beanutils:commons-beanutils:1.9.2'
     
     compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'org.apache.httpcomponents:httpclient:4.5.2'
     
   	compile ('org.apache.curator:curator-framework:2.7.1'){
         exclude group: "org.slf4j", module: "slf4j-api"
@@ -139,6 +140,10 @@ dependencies{
         exclude group: "log4j", module: "log4j"
     }
 
+    testCompile(
+		"org.springframework:spring-test:4.1.6.RELEASE",
+		"junit:junit:4.11"
+	)
 }
 
 
