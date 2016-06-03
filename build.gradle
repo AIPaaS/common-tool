@@ -84,7 +84,7 @@ pmdTest {
     }
 }
 
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[compileJava, compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
 
 repositories {
     maven{ url "http://10.1.228.199:18081/nexus/content/groups/public/"  }
@@ -161,12 +161,175 @@ task copyFiles << {
         } 
 } 
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+	baseName moduleName
+    version moduleVersion
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	baseName moduleName
+    version moduleVersion
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
 publish.dependsOn build 
 
 
 publishing {
     publications {
-       publishing.publications.create("${moduleName}", MavenPublication) {
+        mavenJar(MavenPublication) {
+        	groupId group
+        	artifactId "${moduleName}"
+            artifact sourcesJar
+            version moduleVersion
+             pom.withXml {
+	            asNode().children().last() + {
+	                delegate.dependencies {
+                    	delegate.dependency {
+                                delegate.groupId("org.apache.logging.log4j")
+                                delegate.artifactId("log4j-core")
+                                delegate.version("2.2")
+                        } 
+                    	delegate.dependency {
+                                delegate.groupId("org.apache.logging.log4j")
+                                delegate.artifactId("log4j-slf4j-impl")
+                                delegate.version("2.2")
+                        } 
+                    	delegate.dependency {
+                                delegate.groupId("org.apache.logging.log4j")
+                                delegate.artifactId("log4j-1.2-api")
+                                delegate.version("2.2")
+                        }                                                 
+  						delegate.dependency {
+                                delegate.groupId("com.google.code.gson")
+                                delegate.artifactId("gson")
+                                delegate.version("2.6.2")
+                        }     
+  						delegate.dependency {
+                                delegate.groupId("com.esotericsoftware.kryo")
+                                delegate.artifactId("kryo")
+                                delegate.version("2.24.0")
+                        } 
+  						delegate.dependency {
+                                delegate.groupId("de.javakaffee")
+                                delegate.artifactId("kryo-serializers")
+                                delegate.version("0.27")
+                        }                                                                 
+
+                        delegate.dependency {
+                            delegate.groupId("commons-beanutils")
+                            delegate.artifactId("commons-beanutils")
+                            delegate.version("1.9.2")
+                        }
+                        delegate.dependency {
+                            delegate.groupId("org.apache.commons")
+                            delegate.artifactId("commons-lang3")
+                            delegate.version("3.3.2")
+                        }
+						delegate.dependency {
+                            delegate.groupId("org.apache.curator")
+                            delegate.artifactId("curator-client")
+                            delegate.version("2.7.1")
+                            delegate.exclusions{
+                                delegate.exclusion{
+                                    delegate.groupId("org.slf4j")
+                                    delegate.artifactId("slf4j-api")
+                                }
+                                delegate.exclusion{
+                                    delegate.groupId("log4j")
+                                    delegate.artifactId("log4j")
+                                }
+                         		delegate.exclusion{
+                                    delegate.groupId("org.apache.zookeeper")
+                                    delegate.artifactId("zookeeper")
+                                }                                
+                            }
+                        }                           
+						delegate.dependency {
+                            delegate.groupId("org.apache.curator")
+                            delegate.artifactId("curator-framework")
+                            delegate.version("2.7.1")
+                            delegate.exclusions{
+                                delegate.exclusion{
+                                    delegate.groupId("org.slf4j")
+                                    delegate.artifactId("slf4j-api")
+                                }
+                                delegate.exclusion{
+                                    delegate.groupId("log4j")
+                                    delegate.artifactId("log4j")
+                                }
+                         		delegate.exclusion{
+                                    delegate.groupId("org.apache.zookeeper")
+                                    delegate.artifactId("zookeeper")
+                                }                                
+                            }
+                        }
+						                     
+
+						delegate.dependency {
+                            delegate.groupId("org.apache.zookeeper")
+                            delegate.artifactId("zookeeper")
+                            delegate.version("3.4.6")
+                            delegate.exclusions{
+                                delegate.exclusion{
+                                    delegate.groupId("org.slf4j")
+                                    delegate.artifactId("slf4j-api")
+                                }
+                                delegate.exclusion{
+                                    delegate.groupId("log4j")
+                                    delegate.artifactId("log4j")
+                                }
+                         		delegate.exclusion{
+                                    delegate.groupId("org.slf4j")
+                                    delegate.artifactId("slf4j-log4j12")
+                                }                                
+                            }
+                        }
+                        
+                        delegate.dependency {
+                            delegate.groupId("org.apache.commons")
+                            delegate.artifactId("commons-pool2")
+                            delegate.version("2.2")
+                            delegate.exclusions{
+                                delegate.exclusion{
+                                    delegate.groupId("org.slf4j")
+                                    delegate.artifactId("slf4j-api")
+                                }
+                                delegate.exclusion{
+                                    delegate.groupId("log4j")
+                                    delegate.artifactId("log4j")
+                                }
+                            }
+                        }
+                        delegate.dependency {
+                            delegate.groupId("org.apache.curator")
+                            delegate.artifactId("curator-recipes")
+                            delegate.version("2.7.1")
+                            delegate.exclusions{
+                                delegate.exclusion{
+                                    delegate.groupId("org.slf4j")
+                                    delegate.artifactId("slf4j-api")
+                                }
+                                delegate.exclusion{
+                                    delegate.groupId("log4j")
+                                    delegate.artifactId("log4j")
+                                }
+                            }
+                        }
+                        
+                    }
+	            }
+	        }
+        }		
+       	publishing.publications.create("${moduleName}", MavenPublication) {
             groupId group
             artifactId moduleName
             version moduleVersion
