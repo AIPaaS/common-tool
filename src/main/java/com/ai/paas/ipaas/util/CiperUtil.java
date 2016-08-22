@@ -141,7 +141,7 @@ public class CiperUtil {
 
 	public static void main(String[] args) {
 		
-		String bb = CiperUtil.decrypt( "1@3^$aGH;._|$!@#","ec4c9e0e78f76a69");
+		String bb = CiperUtil.decrypt( "BaryTukyTukyBary","7e340b5299f34582");
 		System.out.println("bb:" + bb);
 		System.out.println(CiperUtil.encrypt(SECURITY_KEY, "admin"));
 	}

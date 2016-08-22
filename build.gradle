@@ -97,8 +97,8 @@ sourceSets {
 }
 
 ext {
-	//moduleMode="-SNAPSHOT";
-	moduleMode="";
+	moduleMode="-SNAPSHOT";
+	//moduleMode="";
 	moduleName="ipaas-common";
 	moduleVersion="0.3"+moduleMode
 	publishUserName = "devadm"
@@ -190,7 +190,7 @@ publishing {
         	artifactId "${moduleName}"
             artifact sourcesJar
             version moduleVersion
-             pom.withXml {
+            pom.withXml {
 	            asNode().children().last() + {
 	                delegate.dependencies {
                     	delegate.dependency {
@@ -324,10 +324,9 @@ publishing {
                                 }
                             }
                         }
-                        
-                    }
-	            }
-	        }
+                   }
+                }
+             }
         }		
        	publishing.publications.create("${moduleName}", MavenPublication) {
             groupId group
