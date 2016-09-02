@@ -71,7 +71,7 @@ public class StringUtil {
 	 *            补齐字符
 	 * @param length
 	 *            目标长度
-	 * @return
+	 * @return 
 	 */
 	public static String lPad(String target, String fix, int length) {
 		if (target == null || fix == null || !(target.length() < length))
