@@ -10,21 +10,21 @@ compileJava.dependsOn clean
 sourceCompatibility = 1.7
 
 configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
-    exclude group: 'log4j', module: 'log4j'
-    exclude group: "org.slf4j", module: "slf4j-log4j12"
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+	resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+	exclude group: 'log4j', module: 'log4j'
+	exclude group: "org.slf4j", module: "slf4j-log4j12"
 }
-    
+
 checkstyleMain {
-    ignoreFailures = false
-    reports {
-        include ( '**/*.java')
-        xml {
-           destination = new File(rootDir, "reports/checkstyle/${project.name}.xml" )
-        }
-    }
-    configFile = new File(rootDir, 'checkstyle.xml')
+	ignoreFailures = false
+	reports {
+		include ( '**/*.java')
+		xml {
+			destination = new File(rootDir, "reports/checkstyle/${project.name}.xml" )
+		}
+	}
+	configFile = new File(rootDir, 'checkstyle.xml')
 }
 
 checkstyleTest {
@@ -41,11 +41,11 @@ checkstyleTest {
 findbugsMain {
 	ignoreFailures = true
 	reports {
-        include ( '**/*.java')
-        xml {
-           destination = new File(rootDir, "reports/findbugs/${project.name}.xml" )
-        }
-    }
+		include ( '**/*.java')
+		xml {
+			destination = new File(rootDir, "reports/findbugs/${project.name}.xml" )
+		}
+	}
 	effort = "max"
 	reportLevel = "high"
 	omitVisitors = ["FindNonShortCircuit"]
@@ -54,11 +54,11 @@ findbugsMain {
 findbugsTest {
 	ignoreFailures = true
 	reports {
-        include ( '**/*.java')
-        xml {
-           destination = new File(rootDir, "reports/findbugs/${project.name}_test.xml" )
-        }
-    }
+		include ( '**/*.java')
+		xml {
+			destination = new File(rootDir, "reports/findbugs/${project.name}_test.xml" )
+		}
+	}
 	effort = "max"
 	reportLevel = "high"
 	omitVisitors = ["FindNonShortCircuit"]
@@ -67,33 +67,32 @@ findbugsTest {
 pmdMain {
 	ignoreFailures = true
 	reports {
-        include ( '**/*.java')
-        xml {
-           destination = new File(rootDir, "reports/pmd/${project.name}.xml" )
-        }
-    }
+		include ( '**/*.java')
+		xml {
+			destination = new File(rootDir, "reports/pmd/${project.name}.xml" )
+		}
+	}
 }
 
 pmdTest {
 	ignoreFailures = true
 	reports {
-        include ( '**/*.java')
-        xml {
-           destination = new File(rootDir, "reports/pmd/${project.name}_test.xml" )
-        }
-    }
+		include ( '**/*.java')
+		xml {
+			destination = new File(rootDir, "reports/pmd/${project.name}_test.xml" )
+		}
+	}
 }
 
-[compileJava, compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
-repositories {
-    maven{ url "http://10.1.228.199:18081/nexus/content/groups/public/"  }
-}
+repositories { maven{ url "http://10.1.228.199:18081/nexus/content/groups/public/"
+	} }
 
 sourceSets {
-    main {
-        java { srcDirs = ['src/main/java']}
-    }
+	main {
+		java { srcDirs = ['src/main/java']}
+	}
 }
 
 ext {
@@ -107,8 +106,8 @@ ext {
 	publishUserPassword = "Devadm@1212"
 	publishSnapShotsURL="http://10.1.228.199:18081/nexus/content/repositories/snapshots/"
 	publishReleaseURL="http://10.1.228.199:18081/nexus/content/repositories/releases/"
-	builtBy="gradle 2.1" 
-} 
+	builtBy="gradle 2.1"
+}
 
 group = 'com.ai'
 
@@ -116,70 +115,69 @@ dependencies{
 	compile "org.apache.logging.log4j:log4j-core:2.2"
 	compile "org.apache.logging.log4j:log4j-slf4j-impl:2.2"
 	compile "org.apache.logging.log4j:log4j-1.2-api:2.2"
-	
+
 	compile 'com.google.code.gson:gson:2.6.2'
-	
+
 	compile "com.esotericsoftware.kryo:kryo:2.24.0"
 	compile "de.javakaffee:kryo-serializers:0.27"
-	
-    compile 'commons-beanutils:commons-beanutils:1.9.2'
-    
-    compile 'org.apache.commons:commons-lang3:3.3.2'
-    compile 'org.apache.httpcomponents:httpclient:4.5.2'
-	compile 'org.bouncycastle:bcprov-jdk15on:1.49'
-	
-    
-  	compile ('org.apache.curator:curator-framework:2.7.1'){
-        exclude group: "org.slf4j", module: "slf4j-api"
-        exclude group: "log4j", module: "log4j"
-        exclude group: "org.apache.zookeeper", module: "zookeeper"
-    }
-    compile ('org.apache.curator:curator-recipes:2.7.1'){
-        exclude group: "org.slf4j", module: "slf4j-api"
-        exclude group: "log4j", module: "log4j"
-    }
-    compile ('org.apache.zookeeper:zookeeper:3.4.6'){
-        exclude group: "org.slf4j", module: "slf4j-api"
-        exclude group: "org.slf4j", module: "slf4j-log4j12"
-        exclude group: "log4j", module: "log4j"
-    }
 
-    testCompile(
-		"org.springframework:spring-test:4.1.6.RELEASE",
-		"junit:junit:4.11"
-	)
+	compile 'commons-beanutils:commons-beanutils:1.9.2'
+
+	compile 'org.apache.commons:commons-lang3:3.3.2'
+	compile 'org.apache.httpcomponents:httpclient:4.5.2'
+	compile 'org.bouncycastle:bcprov-jdk15on:1.49'
+
+
+	compile ('org.apache.curator:curator-framework:2.7.1'){
+		exclude group: "org.slf4j", module: "slf4j-api"
+		exclude group: "log4j", module: "log4j"
+		exclude group: "org.apache.zookeeper", module: "zookeeper"
+	}
+	compile ('org.apache.curator:curator-recipes:2.7.1'){
+		exclude group: "org.slf4j", module: "slf4j-api"
+		exclude group: "log4j", module: "log4j"
+	}
+	compile ('org.apache.zookeeper:zookeeper:3.4.6'){
+		exclude group: "org.slf4j", module: "slf4j-api"
+		exclude group: "org.slf4j", module: "slf4j-log4j12"
+		exclude group: "log4j", module: "log4j"
+	}
+
+	testCompile(
+			"org.springframework:spring-test:4.1.6.RELEASE",
+			"junit:junit:4.11"
+			)
 }
 
 
 jar {
 
-	println "Hello $moduleVersion" 
-    baseName moduleName
-    version moduleVersion
+	println "Hello $moduleVersion"
+	baseName moduleName
+	version moduleVersion
 	manifest {
-        attributes 'packageName': moduleName, 'Built-By': builtBy,'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
-    }
+		attributes 'packageName': moduleName, 'Built-By': builtBy,'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
+	}
 }
-task copyFiles << { 
-        copy{ 
-                from configurations.compile 
-                into "$buildDir/copy" 
-        } 
-} 
+task copyFiles << {
+	copy{
+		from configurations.compile
+		into "$buildDir/copy"
+	}
+}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
 	baseName moduleName
-    version moduleVersion
-    classifier = 'sources'
-    from sourceSets.main.allSource
+	version moduleVersion
+	classifier = 'sources'
+	from sourceSets.main.allSource
 }
 javadoc {
 	exclude               "**/internal/**"
 	failOnError				false
 	options.memberLevel = JavadocMemberLevel.PUBLIC
-	
+
 	options.addStringOption("Xdoclint", "none")
-	
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
@@ -192,317 +190,62 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 
 
-artifacts {
-    archives sourcesJar
-	archives javadocJar
-}
+artifacts { archives sourcesJar }
 
-publish.dependsOn build 
+publish.dependsOn build
 
 
 publishing {
-    publications {
-        mavenJar(MavenPublication) {
-        	groupId group
-        	artifactId "${moduleName}"
-            artifact sourcesJar
-            version moduleVersion
-            pom.withXml {
-	            asNode().children().last() + {
-	                delegate.dependencies {
-                    	delegate.dependency {
-                                delegate.groupId("org.apache.logging.log4j")
-                                delegate.artifactId("log4j-core")
-                                delegate.version("2.2")
-                        } 
-                    	delegate.dependency {
-                                delegate.groupId("org.apache.logging.log4j")
-                                delegate.artifactId("log4j-slf4j-impl")
-                                delegate.version("2.2")
-                        } 
-                    	delegate.dependency {
-                                delegate.groupId("org.apache.logging.log4j")
-                                delegate.artifactId("log4j-1.2-api")
-                                delegate.version("2.2")
-                        }                                                 
-  						delegate.dependency {
-                                delegate.groupId("com.google.code.gson")
-                                delegate.artifactId("gson")
-                                delegate.version("2.6.2")
-                        }     
-  						delegate.dependency {
-                                delegate.groupId("com.esotericsoftware.kryo")
-                                delegate.artifactId("kryo")
-                                delegate.version("2.24.0")
-                        } 
-  						delegate.dependency {
-                                delegate.groupId("de.javakaffee")
-                                delegate.artifactId("kryo-serializers")
-                                delegate.version("0.27")
-                        }                                                                 
+	publications {
+		publishing.publications.create("${moduleName}", MavenPublication) {
+			groupId group
+			artifactId moduleName
+			version moduleVersion
+			artifact  jar
 
-                        delegate.dependency {
-                            delegate.groupId("commons-beanutils")
-                            delegate.artifactId("commons-beanutils")
-                            delegate.version("1.9.2")
-                        }
-                        delegate.dependency {
-                            delegate.groupId("org.apache.commons")
-                            delegate.artifactId("commons-lang3")
-                            delegate.version("3.3.2")
-                        }
-						delegate.dependency {
-                            delegate.groupId("org.apache.curator")
-                            delegate.artifactId("curator-client")
-                            delegate.version("2.7.1")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                         		delegate.exclusion{
-                                    delegate.groupId("org.apache.zookeeper")
-                                    delegate.artifactId("zookeeper")
-                                }                                
-                            }
-                        }                           
-						delegate.dependency {
-                            delegate.groupId("org.apache.curator")
-                            delegate.artifactId("curator-framework")
-                            delegate.version("2.7.1")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                         		delegate.exclusion{
-                                    delegate.groupId("org.apache.zookeeper")
-                                    delegate.artifactId("zookeeper")
-                                }                                
-                            }
-                        }
-						                     
+			artifact (sourcesJar) { classifier "sources" }
 
-						delegate.dependency {
-                            delegate.groupId("org.apache.zookeeper")
-                            delegate.artifactId("zookeeper")
-                            delegate.version("3.4.6")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                         		delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-log4j12")
-                                }                                
-                            }
-                        }
-                        
-                        delegate.dependency {
-                            delegate.groupId("org.apache.commons")
-                            delegate.artifactId("commons-pool2")
-                            delegate.version("2.2")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                            }
-                        }
-                        delegate.dependency {
-                            delegate.groupId("org.apache.curator")
-                            delegate.artifactId("curator-recipes")
-                            delegate.version("2.7.1")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                            }
-                        }
-                   }
-                }
-             }
-       	} 
-       	publishing.publications.create("${moduleName}", MavenPublication) {
-            groupId group
-            artifactId moduleName
-            version moduleVersion
-            artifact  jar
-            pom.withXml {
-	            asNode().children().last() + {
-	                delegate.dependencies {
-                    	delegate.dependency {
-                                delegate.groupId("org.apache.logging.log4j")
-                                delegate.artifactId("log4j-core")
-                                delegate.version("2.2")
-                        } 
-                    	delegate.dependency {
-                                delegate.groupId("org.apache.logging.log4j")
-                                delegate.artifactId("log4j-slf4j-impl")
-                                delegate.version("2.2")
-                        } 
-                    	delegate.dependency {
-                                delegate.groupId("org.apache.logging.log4j")
-                                delegate.artifactId("log4j-1.2-api")
-                                delegate.version("2.2")
-                        }                                                 
-  						delegate.dependency {
-                                delegate.groupId("com.google.code.gson")
-                                delegate.artifactId("gson")
-                                delegate.version("2.6.2")
-                        }     
-  						delegate.dependency {
-                                delegate.groupId("com.esotericsoftware.kryo")
-                                delegate.artifactId("kryo")
-                                delegate.version("2.24.0")
-                        } 
-  						delegate.dependency {
-                                delegate.groupId("de.javakaffee")
-                                delegate.artifactId("kryo-serializers")
-                                delegate.version("0.27")
-                        }                                                                 
+			pom.withXml {
+				//Creating additional node for dependencies
+				def dependenciesNode = asNode().appendNode('dependencies')
 
-                        delegate.dependency {
-                            delegate.groupId("commons-beanutils")
-                            delegate.artifactId("commons-beanutils")
-                            delegate.version("1.9.2")
-                        }
-                        delegate.dependency {
-                            delegate.groupId("org.apache.commons")
-                            delegate.artifactId("commons-lang3")
-                            delegate.version("3.3.2")
-                        }
-						delegate.dependency {
-                            delegate.groupId("org.apache.curator")
-                            delegate.artifactId("curator-client")
-                            delegate.version("2.7.1")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                         		delegate.exclusion{
-                                    delegate.groupId("org.apache.zookeeper")
-                                    delegate.artifactId("zookeeper")
-                                }                                
-                            }
-                        }                           
-						delegate.dependency {
-                            delegate.groupId("org.apache.curator")
-                            delegate.artifactId("curator-framework")
-                            delegate.version("2.7.1")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                         		delegate.exclusion{
-                                    delegate.groupId("org.apache.zookeeper")
-                                    delegate.artifactId("zookeeper")
-                                }                                
-                            }
-                        }
-						                     
+				//Defining configuration names from which dependencies will be taken (debugCompile or releaseCompile and compile)
+				def configurationNames = ['compile']
 
-						delegate.dependency {
-                            delegate.groupId("org.apache.zookeeper")
-                            delegate.artifactId("zookeeper")
-                            delegate.version("3.4.6")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                         		delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-log4j12")
-                                }                                
-                            }
-                        }
-                        
-                        delegate.dependency {
-                            delegate.groupId("org.apache.commons")
-                            delegate.artifactId("commons-pool2")
-                            delegate.version("2.2")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                            }
-                        }
-                        delegate.dependency {
-                            delegate.groupId("org.apache.curator")
-                            delegate.artifactId("curator-recipes")
-                            delegate.version("2.7.1")
-                            delegate.exclusions{
-                                delegate.exclusion{
-                                    delegate.groupId("org.slf4j")
-                                    delegate.artifactId("slf4j-api")
-                                }
-                                delegate.exclusion{
-                                    delegate.groupId("log4j")
-                                    delegate.artifactId("log4j")
-                                }
-                            }
-                        }
-                        
-                    }
-	            }
-	        }
-        }
-    }
-    
-    repositories {
-        maven {
-            credentials {
-                username = publishUserName
-                password = publishUserPassword
-            }
-            if(moduleVersion.endsWith('-SNAPSHOT')) {
-                url publishSnapShotsURL
-            } else {
-                url publishReleaseURL
-            }
-        }
-    }
+				configurationNames.each { configurationName ->
+					configurations[configurationName].allDependencies.each {
+						if (it.group != null && it.name != null) {
+							def dependencyNode = dependenciesNode.appendNode('dependency')
+							dependencyNode.appendNode('groupId', it.group)
+							dependencyNode.appendNode('artifactId', it.name)
+							dependencyNode.appendNode('version', it.version)
+
+							//If there are any exclusions in dependency
+							if (it.excludeRules.size() > 0) {
+								def exclusionsNode = dependencyNode.appendNode('exclusions')
+								it.excludeRules.each { rule ->
+									def exclusionNode = exclusionsNode.appendNode('exclusion')
+									exclusionNode.appendNode('groupId', rule.group)
+									exclusionNode.appendNode('artifactId', rule.module)
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	repositories {
+		maven {
+			credentials {
+				username = publishUserName
+				password = publishUserPassword
+			}
+			if(moduleVersion.endsWith('-SNAPSHOT')) {
+				url publishSnapShotsURL
+			} else {
+				url publishReleaseURL
+			}
+		}
+	}
 }
-
