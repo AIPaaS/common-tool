@@ -2,7 +2,7 @@ package com.ai.paas.ipaas.i18n;
 
 public abstract class ZoneContextHolder {
 
-	private static final ThreadLocal<String> zoneContextHolder = new ThreadLocal<>();
+	private static ThreadLocal<String> zoneContextHolder = new ThreadLocal<>();
 
 	/**
 	 * Reset the LocaleContext for the current thread.
@@ -17,6 +17,11 @@ public abstract class ZoneContextHolder {
 
 	public static String getZone() {
 		return zoneContextHolder.get();
+	}
+
+	public static void clear() {
+		zoneContextHolder.remove();
+		zoneContextHolder = null;
 	}
 
 }

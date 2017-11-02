@@ -1,3 +1,4 @@
+package com.ai.paas.ipaas.util;
 /*
  * Copyright 2006 Sun Microsystems, Inc.  All Rights Reserved.
  *

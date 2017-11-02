@@ -97,7 +97,7 @@ sourceSets {
 
 ext {
 	moduleName = "ipaas-common";
-	moduleVersion = version != "unspecified"?version:'0.3.2'
+	moduleVersion = version != "unspecified"?version:'0.3.3'
 	moduleMode = project.hasProperty('mode') ? project.getProperty('mode') : 'R'
 	if(moduleMode == 'S'){
 		moduleVersion = moduleVersion + "-SNAPSHOT";
