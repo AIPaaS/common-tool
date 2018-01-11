@@ -4,7 +4,7 @@ package com.ai.paas.ipaas;
  * pass 层普通异常定义
  *
  */
-public class PaasException extends Exception {
+public class GeneralException extends Exception {
 	/**
 	 * 
 	 */
@@ -12,23 +12,23 @@ public class PaasException extends Exception {
 	private String errCode;
 	private String errDetail;
 
-	public PaasException(String errDetail) {
+	public GeneralException(String errDetail) {
 		super(errDetail);
 		this.errDetail = errDetail;
 	}
 
-	public PaasException(String errCode, String errDetail) {
+	public GeneralException(String errCode, String errDetail) {
 		super(errCode + ":" + errDetail);
 		this.errCode = errCode;
 		this.errDetail = errDetail;
 	}
 
-	public PaasException(String errCode, Exception ex) {
+	public GeneralException(String errCode, Exception ex) {
 		super(errCode, ex);
 		this.errCode = errCode;
 	}
 
-	public PaasException(String errCode, String errDetail, Exception ex) {
+	public GeneralException(String errCode, String errDetail, Exception ex) {
 		super(errCode + ":" + errDetail, ex);
 		this.errCode = errCode;
 		this.errDetail = errDetail;

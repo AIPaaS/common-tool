@@ -1,6 +1,6 @@
 package com.ai.paas.ipaas;
 
-public class PaaSConstant {
+public class Constant {
 
 	public static final String CHARSET_UTF8 = "UTF-8";
 	public static final String CHARSET_GBK = "GBK";

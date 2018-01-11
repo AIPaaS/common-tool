@@ -10,7 +10,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.ai.paas.ipaas.PaaSConstant;
+import com.ai.paas.ipaas.Constant;
 
 /**
  * 日期工具
@@ -193,7 +193,7 @@ public class DateTimeUtil {
 		String diff = null;
 		String tmpFmt = dateFmt;
 		if (null == tmpFmt)
-			tmpFmt = PaaSConstant.DATE_JAVA_FORMAT;
+			tmpFmt = Constant.DATE_JAVA_FORMAT;
 		if (null != dateStr1 && null != dateStr2
 				&& dateStr1.length() >= tmpFmt.length()
 				&& dateStr1.length() >= tmpFmt.length()) {
@@ -239,7 +239,7 @@ public class DateTimeUtil {
 		boolean isLeap = false;
 		String tmpFmt = dateFmt;
 		if (null == tmpFmt)
-			tmpFmt = PaaSConstant.DATE_JAVA_FORMAT;
+			tmpFmt = Constant.DATE_JAVA_FORMAT;
 		if (null != dateStr && dateStr.length() >= tmpFmt.length()) {
 			try {
 				String tmpStr = dateStr.substring(0, tmpFmt.length());
@@ -259,7 +259,7 @@ public class DateTimeUtil {
 	 * @return 返回数字，周日：1 周一 2 ...周六:7。
 	 */
 	public static int getWorkDay() {
-		int ret = PaaSConstant.ERROR_RESULT;
+		int ret = Constant.ERROR_RESULT;
 		Date date = null;
 
 		date = new Date();
@@ -279,7 +279,7 @@ public class DateTimeUtil {
 	 * @return 返回数字，周日：1 周一 2 ...周六:7。
 	 */
 	public static int getWorkDay(int diffDays, Date date) {
-		int ret = PaaSConstant.ERROR_RESULT;
+		int ret = Constant.ERROR_RESULT;
 
 		Date tmpDate = null;
 
@@ -324,8 +324,8 @@ public class DateTimeUtil {
 	 */
 	public static int getWorkDay(int diffDays, String dateStr, String dateFmt)
 			throws ParseException {
-		int ret = PaaSConstant.ERROR_RESULT;
-		String dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+		int ret = Constant.ERROR_RESULT;
+		String dtFmt = Constant.DATE_JAVA_FORMAT;
 		Date inDate = null;
 		if (null != dateFmt)
 			dtFmt = dateFmt;
@@ -356,7 +356,7 @@ public class DateTimeUtil {
 	public static String monthAdd(int diffMonths, String dateStr, String dateFmt)
 			throws ParseException {
 		String retDate = null;
-		String dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+		String dtFmt = Constant.DATE_JAVA_FORMAT;
 		Date inDate = null;
 		if (null != dateFmt)
 			dtFmt = dateFmt;
@@ -402,7 +402,7 @@ public class DateTimeUtil {
 	 */
 	public static String monthAdd(int diffMonths, Date date)
 			throws ParseException {
-		String dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+		String dtFmt = Constant.DATE_JAVA_FORMAT;
 		if (null == date)
 			date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat(dtFmt);
@@ -425,7 +425,7 @@ public class DateTimeUtil {
 	public static String dateAdd(int diffDays, String dateStr, String dateFmt)
 			throws ParseException {
 		String retDate = null;
-		String dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+		String dtFmt = Constant.DATE_JAVA_FORMAT;
 		Date inDate = null;
 		if (null != dateFmt)
 			dtFmt = dateFmt;
@@ -469,7 +469,7 @@ public class DateTimeUtil {
 	 * @throws ParseException
 	 */
 	public static String dateAdd(int diffDays, Date date) throws ParseException {
-		String dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+		String dtFmt = Constant.DATE_JAVA_FORMAT;
 		if (null == date)
 			date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat(dtFmt);
@@ -517,7 +517,7 @@ public class DateTimeUtil {
 		if (date != null) {
 			String dtFmt = dateFmt;
 			if (null == dtFmt)
-				dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+				dtFmt = Constant.DATE_JAVA_FORMAT;
 			SimpleDateFormat formatter = new SimpleDateFormat(dtFmt);
 			strTemp = formatter.format(date);
 		}
@@ -549,7 +549,7 @@ public class DateTimeUtil {
 		if (date != null) {
 			String dtFmt = dateFmt;
 			if (null == dtFmt)
-				dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+				dtFmt = Constant.DATE_JAVA_FORMAT;
 			SimpleDateFormat formatter = new SimpleDateFormat(dtFmt);
 			strTemp = formatter.format(date);
 		}
@@ -613,7 +613,7 @@ public class DateTimeUtil {
 			// strDate = strDate.replace(c, r);
 			String dtFmt = dateFmt;
 			if (null == dtFmt)
-				dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+				dtFmt = Constant.DATE_JAVA_FORMAT;
 			SimpleDateFormat formatter = new SimpleDateFormat(dtFmt);
 			java.util.Date d = formatter.parse(strDate);
 			Timestamp numTime = new Timestamp(d.getTime());
@@ -653,7 +653,7 @@ public class DateTimeUtil {
 		if (strDate != null && !strDate.equals("")) {
 			String dtFmt = strFormat;
 			if (null == dtFmt)
-				dtFmt = PaaSConstant.DATE_JAVA_FORMAT;
+				dtFmt = Constant.DATE_JAVA_FORMAT;
 			SimpleDateFormat formatter = new SimpleDateFormat(dtFmt);
 			java.util.Date d = formatter.parse(strDate);
 			return d;
@@ -729,7 +729,7 @@ public class DateTimeUtil {
 	 */
 	public static int getCurMonthDayNumber(String strYear, String strMonth)
 			throws NumberFormatException {
-		int ret = PaaSConstant.ERROR_RESULT;
+		int ret = Constant.ERROR_RESULT;
 		if (Integer.parseInt(strMonth) > 0 && Integer.parseInt(strMonth) <= 12) {
 			Calendar cal = Calendar.getInstance(Locale.CHINA);
 			cal.clear();
@@ -883,11 +883,11 @@ public class DateTimeUtil {
 	 * @return
 	 */
 	public static String format(Date date) {
-		return date == null ? "" : format(date, PaaSConstant.DATE_JAVA_FORMAT);
+		return date == null ? "" : format(date, Constant.DATE_JAVA_FORMAT);
 	}
 
 	public static String formatDateTime(Date date) {
-		return format(date, PaaSConstant.DATETIME_JAVA_FORMAT);
+		return format(date, Constant.DATETIME_JAVA_FORMAT);
 	}
 
 	/**
@@ -912,7 +912,7 @@ public class DateTimeUtil {
 	 */
 	public static Date parse(String strDate) throws ParseException {
 		return StringUtil.isBlank(strDate) ? null : parse(strDate,
-				PaaSConstant.DATE_JAVA_FORMAT);
+				Constant.DATE_JAVA_FORMAT);
 	}
 
 	/**
@@ -942,7 +942,7 @@ public class DateTimeUtil {
 	public static String getLastMonth() {
 		GregorianCalendar now = new GregorianCalendar();
 		now.add(GregorianCalendar.MONTH, -1);
-		return format(now.getTime(), PaaSConstant.DATE_FILE_FORMAT_SHORT);
+		return format(now.getTime(), Constant.DATE_FILE_FORMAT_SHORT);
 	}
 
 	/**

@@ -1,10 +1,23 @@
 package com.ai.paas.ipaas.util;
 
+/**
+ * 十六进制与字符转换工具类
+ * 
+ * @author douxiaofeng
+ *
+ */
+
 public class AsciiUtil {
 	private AsciiUtil() {
 
 	}
 
+	/**
+	 * 十六进制字节转换为字符
+	 * 
+	 * @param in
+	 * @return
+	 */
 	public static byte[] hex2Ascii(byte[] in) {
 		byte[] temp1 = new byte[1];
 		byte[] temp2 = new byte[1];
@@ -32,6 +45,12 @@ public class AsciiUtil {
 		return out;
 	}
 
+	/**
+	 * 字符转换为十六进制
+	 * 
+	 * @param in
+	 * @return
+	 */
 	public static byte[] ascii2Hex(byte[] in) {
 		byte[] temp1 = new byte[1];
 		byte[] temp2 = new byte[1];

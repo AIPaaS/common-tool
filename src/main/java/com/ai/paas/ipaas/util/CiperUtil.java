@@ -16,8 +16,14 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ai.paas.ipaas.PaaSConstant;
+import com.ai.paas.ipaas.Constant;
 
+/**
+ * 非对称加密工具类
+ * 
+ * @author douxiaofeng
+ *
+ */
 public class CiperUtil {
 	private static transient final Logger log = LoggerFactory.getLogger(CiperUtil.class);
 
@@ -100,8 +106,8 @@ public class CiperUtil {
 	public static String encrypt(String securityKey, String data) {
 		byte[] aa;
 		try {
-			aa = encrypt(data.getBytes(PaaSConstant.CHARSET_UTF8),
-					AsciiUtil.ascii2Hex(securityKey.getBytes(PaaSConstant.CHARSET_UTF8)), DES_ECB_ALGORITHM);
+			aa = encrypt(data.getBytes(Constant.CHARSET_UTF8),
+					AsciiUtil.ascii2Hex(securityKey.getBytes(Constant.CHARSET_UTF8)), DES_ECB_ALGORITHM);
 			return new String(AsciiUtil.hex2Ascii(aa));
 		} catch (UnsupportedEncodingException e) {
 			log.error("exception:", e);
@@ -112,8 +118,8 @@ public class CiperUtil {
 	public static String decrypt(String securityKey, String data) {
 		byte[] aa;
 		try {
-			aa = AsciiUtil.ascii2Hex(data.getBytes(PaaSConstant.CHARSET_UTF8));
-			return new String(decrypt(aa, AsciiUtil.ascii2Hex(securityKey.getBytes(PaaSConstant.CHARSET_UTF8)),
+			aa = AsciiUtil.ascii2Hex(data.getBytes(Constant.CHARSET_UTF8));
+			return new String(decrypt(aa, AsciiUtil.ascii2Hex(securityKey.getBytes(Constant.CHARSET_UTF8)),
 					DES_ECB_ALGORITHM));
 		} catch (UnsupportedEncodingException e) {
 			log.error("exception:", e);
@@ -124,8 +130,8 @@ public class CiperUtil {
 	public static String encrypt(String securityKey, String data, String algorithm) {
 		byte[] aa;
 		try {
-			aa = encrypt(data.getBytes(PaaSConstant.CHARSET_UTF8),
-					AsciiUtil.ascii2Hex(securityKey.getBytes(PaaSConstant.CHARSET_UTF8)), algorithm);
+			aa = encrypt(data.getBytes(Constant.CHARSET_UTF8),
+					AsciiUtil.ascii2Hex(securityKey.getBytes(Constant.CHARSET_UTF8)), algorithm);
 			return new String(AsciiUtil.hex2Ascii(aa));
 		} catch (UnsupportedEncodingException e) {
 			log.error("exception:", e);
@@ -136,9 +142,9 @@ public class CiperUtil {
 	public static String decrypt(String securityKey, String data, String algorithm) {
 		byte[] aa;
 		try {
-			aa = AsciiUtil.ascii2Hex(data.getBytes(PaaSConstant.CHARSET_UTF8));
+			aa = AsciiUtil.ascii2Hex(data.getBytes(Constant.CHARSET_UTF8));
 			return new String(
-					decrypt(aa, AsciiUtil.ascii2Hex(securityKey.getBytes(PaaSConstant.CHARSET_UTF8)), algorithm));
+					decrypt(aa, AsciiUtil.ascii2Hex(securityKey.getBytes(Constant.CHARSET_UTF8)), algorithm));
 		} catch (UnsupportedEncodingException e) {
 			log.error("exception:", e);
 		}
@@ -147,13 +153,13 @@ public class CiperUtil {
 
 	public static String des3Encrypt(String key, String data) throws Exception {
 		return new String(
-				AsciiUtil.hex2Ascii(des3EncodeCBC(key.getBytes(PaaSConstant.CHARSET_UTF8), KEY_IV, data.getBytes())));
+				AsciiUtil.hex2Ascii(des3EncodeCBC(key.getBytes(Constant.CHARSET_UTF8), KEY_IV, data.getBytes())));
 	}
 
 	public static String des3Decrypt(String key, String data) throws Exception {
-		byte[] aa = AsciiUtil.ascii2Hex(data.getBytes(PaaSConstant.CHARSET_UTF8));
-		return new String(des3DecodeCBC(key.getBytes(PaaSConstant.CHARSET_UTF8), KEY_IV, aa),
-				PaaSConstant.CHARSET_UTF8);
+		byte[] aa = AsciiUtil.ascii2Hex(data.getBytes(Constant.CHARSET_UTF8));
+		return new String(des3DecodeCBC(key.getBytes(Constant.CHARSET_UTF8), KEY_IV, aa),
+				Constant.CHARSET_UTF8);
 	}
 
 	/**

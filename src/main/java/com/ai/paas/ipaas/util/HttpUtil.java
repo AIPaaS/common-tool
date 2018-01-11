@@ -38,8 +38,8 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ai.paas.ipaas.PaaSConstant;
-import com.ai.paas.ipaas.PaasRuntimeException;
+import com.ai.paas.ipaas.Constant;
+import com.ai.paas.ipaas.GeneralRuntimeException;
 
 public class HttpUtil {
 	private HttpUtil() {
@@ -120,12 +120,12 @@ public class HttpUtil {
 				HttpEntity entity = response.getEntity();
 				return EntityUtils.toString(entity, readCharset);
 			} else {
-				throw new PaasRuntimeException(""
+				throw new GeneralRuntimeException(""
 						+ response.getStatusLine().getStatusCode(), response
 						.getStatusLine().toString());
 			}
 		} catch (Exception e) {
-			throw new PaasRuntimeException("", e);
+			throw new GeneralRuntimeException("", e);
 		} finally {
 			if (null != response) {
 				try {
@@ -153,7 +153,7 @@ public class HttpUtil {
 	 * @return
 	 */
 	public static String doPost(String urlAddr, StringEntity param) {
-		return doPost(urlAddr, param, null, PaaSConstant.CHARSET_UTF8,
+		return doPost(urlAddr, param, null, Constant.CHARSET_UTF8,
 				_cnnTimeOut, _cnnRequestTimeOut, _socketTimeOut);
 	}
 
@@ -176,7 +176,7 @@ public class HttpUtil {
 			return doPost(urlAddr, entity, null, readCharset, cnnTimeOut,
 					cnnTimeOut, cnnTimeOut);
 		} catch (UnsupportedEncodingException t) {
-			throw new PaasRuntimeException("", t);
+			throw new GeneralRuntimeException("", t);
 		}
 	}
 
@@ -189,17 +189,17 @@ public class HttpUtil {
 
 	public static String doPost(String urlAddr, Map<String, String> param,
 			int cnnTimeOut) {
-		return doPost(urlAddr, param, PaaSConstant.CHARSET_UTF8,
-				PaaSConstant.CHARSET_UTF8, PaaSConstant.CHARSET_UTF8,
-				PaaSConstant.CHARSET_UTF8, cnnTimeOut);
+		return doPost(urlAddr, param, Constant.CHARSET_UTF8,
+				Constant.CHARSET_UTF8, Constant.CHARSET_UTF8,
+				Constant.CHARSET_UTF8, cnnTimeOut);
 
 	}
 
 	public static String doPost(String urlAddr, Map<String, String> param) {
 		//
-		return doPost(urlAddr, param, PaaSConstant.CHARSET_UTF8,
-				PaaSConstant.CHARSET_UTF8, PaaSConstant.CHARSET_UTF8,
-				PaaSConstant.CHARSET_UTF8, _cnnTimeOut, _cnnRequestTimeOut,
+		return doPost(urlAddr, param, Constant.CHARSET_UTF8,
+				Constant.CHARSET_UTF8, Constant.CHARSET_UTF8,
+				Constant.CHARSET_UTF8, _cnnTimeOut, _cnnRequestTimeOut,
 				_socketTimeOut);
 	}
 
@@ -246,12 +246,12 @@ public class HttpUtil {
 				HttpEntity entity = response.getEntity();
 				return EntityUtils.toString(entity, readCharset);
 			} else {
-				throw new PaasRuntimeException(""
+				throw new GeneralRuntimeException(""
 						+ response.getStatusLine().getStatusCode(), response
 						.getStatusLine().toString());
 			}
 		} catch (Exception e) {
-			throw new PaasRuntimeException("", e);
+			throw new GeneralRuntimeException("", e);
 		} finally {
 			if (null != response) {
 				try {
@@ -274,21 +274,21 @@ public class HttpUtil {
 	public static String doGet(String urlAddr, Map<String, String> param,
 			Map<String, String> header, int cnnTimeOut, int cnnRequestTimeOut,
 			int socketTimeOut) {
-		return doGet(urlAddr, param, header, PaaSConstant.CHARSET_UTF8,
-				PaaSConstant.CHARSET_UTF8, PaaSConstant.CHARSET_UTF8,
+		return doGet(urlAddr, param, header, Constant.CHARSET_UTF8,
+				Constant.CHARSET_UTF8, Constant.CHARSET_UTF8,
 				cnnTimeOut, cnnRequestTimeOut, socketTimeOut);
 	}
 
 	public static String doGet(String urlAddr, Map<String, String> param,
 			Map<String, String> header) {
-		return doGet(urlAddr, param, header, PaaSConstant.CHARSET_UTF8,
-				PaaSConstant.CHARSET_UTF8, PaaSConstant.CHARSET_UTF8,
+		return doGet(urlAddr, param, header, Constant.CHARSET_UTF8,
+				Constant.CHARSET_UTF8, Constant.CHARSET_UTF8,
 				_cnnTimeOut, _cnnRequestTimeOut, _socketTimeOut);
 	}
 
 	public static String doGet(String urlAddr, Map<String, String> param) {
-		return doGet(urlAddr, param, null, PaaSConstant.CHARSET_UTF8,
-				PaaSConstant.CHARSET_UTF8, PaaSConstant.CHARSET_UTF8,
+		return doGet(urlAddr, param, null, Constant.CHARSET_UTF8,
+				Constant.CHARSET_UTF8, Constant.CHARSET_UTF8,
 				_cnnTimeOut, _cnnRequestTimeOut, _socketTimeOut);
 	}
 
@@ -328,18 +328,18 @@ public class HttpUtil {
 				pairList.add(pair);
 			}
 			httpPost.setEntity(new UrlEncodedFormEntity(pairList,
-					PaaSConstant.CHARSET_UTF8));
+					Constant.CHARSET_UTF8));
 			response = httpClient.execute(httpPost);
 			if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
 				HttpEntity entity = response.getEntity();
-				return EntityUtils.toString(entity, PaaSConstant.CHARSET_UTF8);
+				return EntityUtils.toString(entity, Constant.CHARSET_UTF8);
 			} else {
-				throw new PaasRuntimeException(""
+				throw new GeneralRuntimeException(""
 						+ response.getStatusLine().getStatusCode(), response
 						.getStatusLine().toString());
 			}
 		} catch (Exception e) {
-			throw new PaasRuntimeException("", e);
+			throw new GeneralRuntimeException("", e);
 		} finally {
 			if (null != response) {
 				try {
@@ -389,7 +389,7 @@ public class HttpUtil {
 					sb.append(key)
 							.append("=")
 							.append(URLEncoder.encode(param.get(key),
-									PaaSConstant.CHARSET_UTF8));
+									Constant.CHARSET_UTF8));
 					i++;
 				}
 			}
@@ -399,14 +399,14 @@ public class HttpUtil {
 			response = httpClient.execute(httpGet);
 			if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
 				HttpEntity entity = response.getEntity();
-				return EntityUtils.toString(entity, PaaSConstant.CHARSET_UTF8);
+				return EntityUtils.toString(entity, Constant.CHARSET_UTF8);
 			} else {
-				throw new PaasRuntimeException(""
+				throw new GeneralRuntimeException(""
 						+ response.getStatusLine().getStatusCode(), response
 						.getStatusLine().toString());
 			}
 		} catch (Exception e) {
-			throw new PaasRuntimeException("", e);
+			throw new GeneralRuntimeException("", e);
 		} finally {
 			if (null != response) {
 				try {
@@ -465,13 +465,7 @@ public class HttpUtil {
 		return sslsf;
 	}
 
-	public static void upload() {
 
-	}
-
-	public static void download() {
-
-	}
 
 	public static void main(String[] args) {
 

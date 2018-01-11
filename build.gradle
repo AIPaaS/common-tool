@@ -7,7 +7,7 @@ apply plugin: 'checkstyle'
 
 compileJava.dependsOn clean
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 
 configurations.all {
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -97,7 +97,7 @@ sourceSets {
 
 ext {
 	moduleName = "ipaas-common";
-	moduleVersion = version != "unspecified"?version:'0.3.3'
+	moduleVersion = version != "unspecified"?version:'0.5'
 	moduleMode = project.hasProperty('mode') ? project.getProperty('mode') : 'R'
 	if(moduleMode == 'S'){
 		moduleVersion = moduleVersion + "-SNAPSHOT";
@@ -112,32 +112,35 @@ ext {
 group = 'com.ai'
 
 dependencies{
-	compile "org.apache.logging.log4j:log4j-core:2.2"
-	compile "org.apache.logging.log4j:log4j-slf4j-impl:2.2"
-	compile "org.apache.logging.log4j:log4j-1.2-api:2.2"
+	compile "org.apache.logging.log4j:log4j-core:2.10.0"
+	compile "org.apache.logging.log4j:log4j-slf4j-impl:2.10.0"
+	compile "org.apache.logging.log4j:log4j-1.2-api:2.10.0"
 
-	compile 'com.google.code.gson:gson:2.6.2'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.3'
+	compile group: 'cglib', name: 'cglib', version: '3.2.5'
 
 	compile "com.esotericsoftware.kryo:kryo:2.24.0"
 	compile "de.javakaffee:kryo-serializers:0.27"
 
 	compile 'commons-beanutils:commons-beanutils:1.9.3'
+	compile group: 'org.apache.commons', name: 'commons-text', version: '1.2'
 
-	compile 'org.apache.commons:commons-lang3:3.3.2'
-	compile 'org.apache.httpcomponents:httpclient:4.5.2'
-	compile 'org.bouncycastle:bcprov-jdk15on:1.49'
+	
+	compile 'org.apache.commons:commons-lang3:3.7'
+	compile 'org.apache.httpcomponents:httpclient:4.5.4'
+	compile 'org.bouncycastle:bcprov-jdk15on:1.59'
 
 
-	compile ('org.apache.curator:curator-framework:2.7.1'){
+	compile ('org.apache.curator:curator-framework:4.0.0'){
 		exclude group: "org.slf4j", module: "slf4j-api"
 		exclude group: "log4j", module: "log4j"
 		exclude group: "org.apache.zookeeper", module: "zookeeper"
 	}
-	compile ('org.apache.curator:curator-recipes:2.7.1'){
+	compile ('org.apache.curator:curator-recipes:4.0.0'){
 		exclude group: "org.slf4j", module: "slf4j-api"
 		exclude group: "log4j", module: "log4j"
 	}
-	compile ('org.apache.zookeeper:zookeeper:3.4.6'){
+	compile ('org.apache.zookeeper:zookeeper:3.4.11'){
 		exclude group: "org.slf4j", module: "slf4j-api"
 		exclude group: "org.slf4j", module: "slf4j-log4j12"
 		exclude group: "log4j", module: "log4j"
