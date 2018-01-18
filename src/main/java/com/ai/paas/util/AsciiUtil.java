@@ -1,5 +1,7 @@
 package com.ai.paas.util;
 
+import com.ai.paas.GeneralRuntimeException;
+
 /**
  * 十六进制与字符转换工具类
  * 
@@ -10,6 +12,31 @@ package com.ai.paas.util;
 public class AsciiUtil {
 	private AsciiUtil() {
 
+	}
+
+	public static String asciiToHex(String asciiValue) {
+		if (StringUtil.isBlank(asciiValue))
+			return null;
+		char[] chars = asciiValue.toCharArray();
+		StringBuilder hex = new StringBuilder();
+		for (int i = 0; i < chars.length; i++) {
+			hex.append(Integer.toHexString((int) chars[i]));
+		}
+		return hex.toString();
+	}
+
+	public static String hexToASCII(String hexValue) {
+		if (StringUtil.isBlank(hexValue))
+			return null;
+		if (hexValue.length() % 2 != 0) {
+			throw new GeneralRuntimeException("The hex value length must be even!");
+		}
+		StringBuilder output = new StringBuilder("");
+		for (int i = 0; i < hexValue.length(); i += 2) {
+			String str = hexValue.substring(i, i + 2);
+			output.append((char) Integer.parseInt(str, 16));
+		}
+		return output.toString();
 	}
 
 	/**
@@ -91,5 +118,26 @@ public class AsciiUtil {
 			i += 2;
 		}
 		return out;
+	}
+
+	public static void main(String[] args) {
+		String ascii = "A simple Java program1";
+
+		// Step-1 - Convert ASCII string to char array
+		char[] ch = ascii.toCharArray();
+
+		// Step-2 Iterate over char array and cast each element to Integer.
+		StringBuilder builder = new StringBuilder();
+
+		for (char c : ch) {
+			int i = (int) c;
+			// Step-3 Convert integer value to hex using toHexString() method.
+			builder.append(Integer.toHexString(i).toUpperCase());
+		}
+
+		System.out.println("ASCII = " + ascii);
+		System.out.println("Hex = " + builder.toString());
+
+		System.out.println(new String(AsciiUtil.ascii2Hex(ascii.getBytes())));
 	}
 }

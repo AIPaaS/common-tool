@@ -82,41 +82,6 @@ public class DateTimeUtil {
 		return season;
 	}
 
-	/**
-	 * 获取输入月份季度<br>
-	 * <p>
-	 * 第一季度:4-6;
-	 * <p>
-	 * 第二季度:7-9;
-	 * <p>
-	 * 第三季度:10-12;
-	 * <p>
-	 * 第四季度:1-3;
-	 * 
-	 * @param 月份
-	 * @return String 返回输入月份所在季度。
-	 */
-	public static String getThisSeasonTime(int month) {
-		String quarter = "";
-
-		// 执行四季度 :年份减1
-		if (month >= 1 && month <= 3) {
-			quarter = "4";
-		}
-		// 执行一季度：当前年份
-		if (month >= 4 && month <= 6) {
-			quarter = "1";
-		}
-		// 执行二季度：当前年份
-		if (month >= 7 && month <= 9) {
-			quarter = "2";
-		}
-		// 执行三季度 :当前年份
-		if (month >= 10 && month <= 12) {
-			quarter = "3";
-		}
-		return quarter;
-	}
 
 	// 取得当前时间
 	public static Date getDateTime(String dateTime) {

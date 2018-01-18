@@ -119,8 +119,8 @@ public class CiperUtil {
 		byte[] aa;
 		try {
 			aa = AsciiUtil.ascii2Hex(data.getBytes(Constant.CHARSET_UTF8));
-			return new String(decrypt(aa, AsciiUtil.ascii2Hex(securityKey.getBytes(Constant.CHARSET_UTF8)),
-					DES_ECB_ALGORITHM));
+			return new String(
+					decrypt(aa, AsciiUtil.ascii2Hex(securityKey.getBytes(Constant.CHARSET_UTF8)), DES_ECB_ALGORITHM));
 		} catch (UnsupportedEncodingException e) {
 			log.error("exception:", e);
 		}
@@ -143,8 +143,7 @@ public class CiperUtil {
 		byte[] aa;
 		try {
 			aa = AsciiUtil.ascii2Hex(data.getBytes(Constant.CHARSET_UTF8));
-			return new String(
-					decrypt(aa, AsciiUtil.ascii2Hex(securityKey.getBytes(Constant.CHARSET_UTF8)), algorithm));
+			return new String(decrypt(aa, AsciiUtil.ascii2Hex(securityKey.getBytes(Constant.CHARSET_UTF8)), algorithm));
 		} catch (UnsupportedEncodingException e) {
 			log.error("exception:", e);
 		}
@@ -158,8 +157,7 @@ public class CiperUtil {
 
 	public static String des3Decrypt(String key, String data) throws Exception {
 		byte[] aa = AsciiUtil.ascii2Hex(data.getBytes(Constant.CHARSET_UTF8));
-		return new String(des3DecodeCBC(key.getBytes(Constant.CHARSET_UTF8), KEY_IV, aa),
-				Constant.CHARSET_UTF8);
+		return new String(des3DecodeCBC(key.getBytes(Constant.CHARSET_UTF8), KEY_IV, aa), Constant.CHARSET_UTF8);
 	}
 
 	/**
@@ -245,8 +243,9 @@ public class CiperUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-
-		String bb = CiperUtil.decrypt("BaryTukyTukyBary", "7e340b5299f34582");
+		String aa = CiperUtil.encrypt("BaryTukyTukyBary", "123456");
+		System.out.println("aa:" + aa);
+		String bb = CiperUtil.decrypt("BaryTukyTukyBary", aa);
 		System.out.println("bb:" + bb);
 		System.out.println(CiperUtil.encrypt(SECURITY_KEY, "admin"));
 
