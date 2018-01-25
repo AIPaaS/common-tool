@@ -10,10 +10,11 @@ import test.com.ai.paas.util.Base64UtilTest;
 import test.com.ai.paas.util.BeanUtilTest;
 import test.com.ai.paas.util.CiperUtilTest;
 import test.com.ai.paas.util.HttpUtilTest;
+import test.com.ai.paas.util.JsonUtilTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ AsciiUtilTest.class, AssertTest.class, HttpUtilTest.class, Base64UtilTest.class, BeanUtilTest.class,
-		CiperUtilTest.class })
+		CiperUtilTest.class, JsonUtilTest.class })
 public class AllTests {
 
 }

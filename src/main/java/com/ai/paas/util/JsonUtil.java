@@ -1,5 +1,6 @@
 package com.ai.paas.util;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,10 +9,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ai.paas.GeneralRuntimeException;
 import com.ai.paas.serialize.TypeGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -93,10 +96,15 @@ public class JsonUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String toJson(Object obj) throws Exception {
-		String json = mapper.writeValueAsString(obj);
-		if (log.isInfoEnabled()) {
-			log.info(obj + " trasform into json:" + json);
+	public static String toJson(Object obj) {
+		String json = null;
+		try {
+			json = mapper.writeValueAsString(obj);
+			if (log.isInfoEnabled()) {
+				log.info(obj + " trasform into json:" + json);
+			}
+		} catch (JsonProcessingException e) {
+			throw new GeneralRuntimeException("", e);
 		}
 		return json;
 	}
@@ -109,11 +117,17 @@ public class JsonUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static <T> T fromJson(String json, Class<T> clazz) throws Exception {
-		T t = mapper.readValue(json, clazz);
-		if (log.isInfoEnabled()) {
-			log.info(json + " trasform into class:" + clazz + ",object:" + t);
+	public static <T> T fromJson(String json, Class<T> clazz) {
+		T t = null;
+		try {
+			t = mapper.readValue(json, clazz);
+			if (log.isInfoEnabled()) {
+				log.info(json + " trasform into class:" + clazz + ",object:" + t);
+			}
+		} catch (IOException e) {
+			throw new GeneralRuntimeException("", e);
 		}
+
 		return t;
 	}
 
@@ -126,11 +140,17 @@ public class JsonUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static <T> T fromJson(String json, TypeGetter<T> type) throws Exception {
-		T t = mapper.readValue(json, type);
-		if (log.isInfoEnabled()) {
-			log.info(json + " trasform into class:" + type.getType() + ",object:" + t);
+	public static <T> T fromJson(String json, TypeGetter<T> type) {
+		T t;
+		try {
+			t = mapper.readValue(json, type);
+			if (log.isInfoEnabled()) {
+				log.info(json + " trasform into class:" + type.getType() + ",object:" + t);
+			}
+		} catch (IOException e) {
+			throw new GeneralRuntimeException("", e);
 		}
+
 		return t;
 	}
 

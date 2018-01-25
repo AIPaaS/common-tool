@@ -20,13 +20,20 @@ public class UUIDTool {
 		return uuidGenerator.generate(8);
 	}
 
+	public static String genShortId(int len) {
+		return uuidGenerator.generate(len);
+	}
+
 	public static int getId() {
-		return genId32().hashCode();
+		return Math.abs(genId32().hashCode());
 	}
 
 	public static void main(String[] args) {
 		System.out.println(UUIDTool.genId32());
 		System.out.println(UUIDTool.genShortId());
+		System.out.println(UUIDTool.genShortId(16));
+		System.out.println(UUIDTool.genShortId(10));
+		System.out.println(UUIDTool.genShortId(6));
 		System.out.println(UUIDTool.getId());
 	}
 }
