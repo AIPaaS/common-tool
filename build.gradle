@@ -162,7 +162,7 @@ jar {
 		attributes 'packageName': moduleName, 'Built-By': builtBy,'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
 	}
 }
-task copyFiles << {
+task copyFiles()  {
 	copy{
 		from configurations.compile
 		into "$buildDir/copy"

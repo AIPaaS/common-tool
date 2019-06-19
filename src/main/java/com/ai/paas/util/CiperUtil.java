@@ -255,5 +255,11 @@ public class CiperUtil {
 		System.out.println(data);
 		System.out.println(des3Decrypt(key, data));
 		System.out.println(new String(des3DecodeCBC(key.getBytes("UTF-8"), KEY_IV, bytes)));
+		System.out.println("----"+CiperUtil.decrypt("1@3^$aGH;._|$!@#","ec4c9e0e78f76a69"));
+		
+		
+		key="7331c9b6b1a1d521363f7bca8acb095f";
+		bb=CiperUtil.decrypt(key, "1bd8c89c6928d700b19da31e0334faa3");
+		System.out.println("bb:" + bb);
 	}
 }
