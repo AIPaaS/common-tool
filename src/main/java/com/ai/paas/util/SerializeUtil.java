@@ -2,7 +2,6 @@ package com.ai.paas.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,107 +21,85 @@ import com.ai.paas.serialize.impl.nativejava.NativeJavaSerialization;
  *
  */
 public class SerializeUtil {
-	private static transient final Logger log = LoggerFactory.getLogger(SerializeUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(SerializeUtil.class);
 
-	private SerializeUtil() {
-		//
-	}
+    private SerializeUtil() {
+        //
+    }
 
-	private static Serialization javaSer = new JavaSerialization();
-	private static Serialization compactedjavaSer = new CompactedJavaSerialization();
-	private static Serialization nativejavaSer = new NativeJavaSerialization();
-	private static Serialization kryoSer = new KryoSerialization();
-	private static Serialization serialization = null;
+    private static Serialization javaSer = new JavaSerialization();
+    private static Serialization compactedjavaSer = new CompactedJavaSerialization();
+    private static Serialization nativejavaSer = new NativeJavaSerialization();
+    private static Serialization kryoSer = new KryoSerialization();
+    private static Serialization serialization = null;
 
-	private static Serialization getInstance() {
-		// 配置谁身上
-		if (null == serialization) {
-			// 获取系统属性
-			String type = System.getProperty("serialization", "kryo");
-			switch (type) {
-			case "kryo":
-				serialization = kryoSer;
-				break;
-			case "java":
-				serialization = javaSer;
-				break;
-			case "compactedjava":
-				serialization = compactedjavaSer;
-				break;
-			case "nativejava":
-				serialization = nativejavaSer;
-				break;
-			default:
-				// kryo
-				serialization = kryoSer;
-			}
-		}
-		return serialization;
-	}
+    private static Serialization getInstance() {
+        // 配置谁身上
+        if (null == serialization) {
+            // 获取系统属性
+            String type = System.getProperty("serialization", "kryo");
+            switch (type) {
+            case "kryo":
+                serialization = kryoSer;
+                break;
+            case "java":
+                serialization = javaSer;
+                break;
+            case "compactedjava":
+                serialization = compactedjavaSer;
+                break;
+            case "nativejava":
+                serialization = nativejavaSer;
+                break;
+            default:
+                // kryo
+                serialization = kryoSer;
+            }
+        }
+        return serialization;
+    }
 
-	@SuppressWarnings("rawtypes")
-	public static void register(Class clazz) {
-		if (getInstance() instanceof KryoSerialization) {
-			KryoFactory.getDefaultFactory().registerClass(clazz);
-		}
-	}
+    @SuppressWarnings("rawtypes")
+    public static void register(Class clazz) {
+        if (getInstance() instanceof KryoSerialization) {
+            KryoFactory.getDefaultFactory().registerClass(clazz);
+        }
+    }
 
-	public static byte[] serialize(Object object) {
-		if (object == null)
-			return null;
-		if (log.isDebugEnabled()) {
-			log.debug(object.getClass() + ":" + object + " transfer into bytes!");
-		}
-		ByteArrayOutputStream baos = null;
-		ObjectOutput objectOutput = null;
-		try {
-			baos = new ByteArrayOutputStream();
-			objectOutput = getInstance().serialize(baos);
-			objectOutput.writeObject(object);
-			objectOutput.flushBuffer();
-			byte[] bytes = baos.toByteArray();
-			return bytes;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (null != baos)
-					baos.close();
-				if (null != objectOutput) {
-					objectOutput = null;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
+    public static byte[] serialize(Object object) {
+        if (object == null)
+            return new byte[] {};
+        if (log.isDebugEnabled()) {
+            log.debug(" {}:{} transfer into bytes!", object.getClass(), object);
+        }
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ObjectOutput objectOutput = getInstance().serialize(baos);
+            objectOutput.writeObject(object);
+            objectOutput.flushBuffer();
+            return baos.toByteArray();
+        } catch (Exception e) {
+            log.error("error to serialize object:{}", object, e);
+        }
+        return new byte[] {};
+    }
 
-	public static Object deserialize(byte[] bytes) {
-		if (bytes == null)
-			return null;
-		ByteArrayInputStream bais = null;
-		try {
-			bais = new ByteArrayInputStream(bytes);
-			Object obj = getInstance().deserialize(bais).readObject();
-			if (log.isDebugEnabled()) {
-				log.debug("Bytes transfer into :" + obj.getClass() + "," + obj);
-			}
-			return obj;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (null != bais)
-					bais.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
+    public static Object deserialize(byte[] bytes) {
+        if (bytes == null)
+            return null;
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);) {
 
-	public static void main(String[] args) throws Exception {
-		SerializeUtil.register(String.class);
-	}
+            Object obj = getInstance().deserialize(bais).readObject();
+            if (log.isDebugEnabled()) {
+                log.debug("Bytes transfer into :{},{}", obj.getClass(), obj);
+            }
+            return obj;
+        } catch (Exception e) {
+            log.error("error to deserialize object:", e);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        SerializeUtil.register(String.class);
+    }
 }

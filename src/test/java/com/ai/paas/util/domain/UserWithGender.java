@@ -1,4 +1,4 @@
-package test.com.ai.paas.util.domain;
+package com.ai.paas.util.domain;
 
 import java.io.Serializable;
 

@@ -11,44 +11,48 @@ import java.util.TimeZone;
  */
 public abstract class I18NContextHolder {
 
-	private static ThreadLocal<TimeZone> timeZoneHolder = new ThreadLocal<>();
-	private static ThreadLocal<Locale> localeHolder = new ThreadLocal<>();
+    private static ThreadLocal<TimeZone> timeZoneHolder = new ThreadLocal<>();
+    private static ThreadLocal<Locale> localeHolder = new ThreadLocal<>();
 
-	/**
-	 * Reset the Time Zone Context for the current thread.
-	 */
-	public static void resetZoneContext() {
-		timeZoneHolder.set(null);
-	}
+    private I18NContextHolder() {
 
-	/**
-	 * Reset Locale for the current thread.
-	 */
-	public static void resetLocaleContext() {
-		localeHolder.set(null);
-	}
+    }
 
-	public static void setZone(TimeZone zone) {
-		timeZoneHolder.set(zone);
-	}
+    /**
+     * Reset the Time Zone Context for the current thread.
+     */
+    public static void resetZoneContext() {
+        timeZoneHolder.set(null);
+    }
 
-	public static void setLocale(Locale locale) {
-		localeHolder.set(locale);
-	}
+    /**
+     * Reset Locale for the current thread.
+     */
+    public static void resetLocaleContext() {
+        localeHolder.set(null);
+    }
 
-	public static TimeZone getZone() {
-		return timeZoneHolder.get();
-	}
+    public static void setZone(TimeZone zone) {
+        timeZoneHolder.set(zone);
+    }
 
-	public static Locale getLocale() {
-		return localeHolder.get();
-	}
+    public static void setLocale(Locale locale) {
+        localeHolder.set(locale);
+    }
 
-	public static void clear() {
-		timeZoneHolder.remove();
-		timeZoneHolder = null;
-		localeHolder.remove();
-		localeHolder = null;
-	}
+    public static TimeZone getZone() {
+        return timeZoneHolder.get();
+    }
+
+    public static Locale getLocale() {
+        return localeHolder.get();
+    }
+
+    public static void clear() {
+        timeZoneHolder.remove();
+        timeZoneHolder = null;
+        localeHolder.remove();
+        localeHolder = null;
+    }
 
 }

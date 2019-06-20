@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PooledKryoFactory extends KryoFactory {
 
-	private final Queue<Kryo> pool = new ConcurrentLinkedQueue<Kryo>();
+	private final Queue<Kryo> pool = new ConcurrentLinkedQueue<>();
 
 	@Override
 	public void returnKryo(Kryo kryo) {

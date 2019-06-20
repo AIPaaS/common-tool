@@ -1,4 +1,4 @@
-package test.com.ai.paas.util;
+package com.ai.paas.util;
 
 import static org.junit.Assert.*;
 
@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.ai.paas.util.AsciiUtil;
+import com.ai.paas.util.DateTimeUtil;
 
-public class AsciiUtilTest {
+public class DateTimeUtilTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -29,9 +29,14 @@ public class AsciiUtilTest {
 	}
 
 	@Test
-	public void testHex2Ascii() throws Exception {
-		String s = "This is a test without Chinese! 1234567890";
-		String o = AsciiUtil.hexToASCII(AsciiUtil.asciiToHex(s));
-		assertTrue(s.equals(o));
+	public void testGetSeasonTimeInterval() {
+		assertTrue("20180101-20180331".equals(DateTimeUtil.getSeasonTimeInterval(2018, 1)));
 	}
+
+	@Test
+	public void testGetCurrentSeasonTime() {
+		assertTrue(1 == DateTimeUtil.getCurrentSeasonTime(3));
+		assertTrue(4 == DateTimeUtil.getCurrentSeasonTime(11));
+	}
+
 }

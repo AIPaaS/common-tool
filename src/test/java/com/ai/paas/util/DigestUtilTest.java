@@ -1,4 +1,4 @@
-package test.com.ai.paas.util;
+package com.ai.paas.util;
 
 import static org.junit.Assert.*;
 
@@ -33,14 +33,14 @@ public class DigestUtilTest {
 	public void testSHA256() {
 		String s = "this is a test";
 		byte[] sha256 = org.apache.commons.codec.digest.DigestUtils.sha256(s);
-		assertTrue(DigestUtil.SHA256(s).equals(Base64Util.encode(sha256).toLowerCase()));
+		assertTrue(DigestUtil.sha256(s).equals(Base64Util.encode(sha256).toLowerCase()));
 	}
 
 	@Test
 	public void testSHA512() {
 		String s = "this is a test";
 		byte[] sha512 = org.apache.commons.codec.digest.DigestUtils.sha512(s);
-		assertTrue(DigestUtil.SHA512(s).equals(Base64Util.encode(sha512).toLowerCase()));
+		assertTrue(DigestUtil.sha512(s).equals(Base64Util.encode(sha512).toLowerCase()));
 	}
 
 	@Test

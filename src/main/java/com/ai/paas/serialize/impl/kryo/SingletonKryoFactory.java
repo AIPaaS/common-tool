@@ -10,7 +10,6 @@ import com.esotericsoftware.kryo.Kryo;
  */
 public class SingletonKryoFactory extends KryoFactory {
 
-	// private final Kryo instance = createKryo();
 	private Kryo instance;
 
 	@Override

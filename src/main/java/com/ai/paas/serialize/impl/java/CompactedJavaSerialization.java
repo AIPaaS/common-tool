@@ -8,23 +8,22 @@ import com.ai.paas.serialize.ObjectInput;
 import com.ai.paas.serialize.ObjectOutput;
 import com.ai.paas.serialize.Serialization;
 
-
 public class CompactedJavaSerialization implements Serialization {
 
-	public byte getContentTypeId() {
-		return 4;
-	}
+    public byte getContentTypeId() {
+        return 4;
+    }
 
-	public String getContentType() {
-		return "x-application/compactedjava";
-	}
+    public String getContentType() {
+        return "x-application/compactedjava";
+    }
 
-	public ObjectOutput serialize(OutputStream out) throws IOException {
-		return (ObjectOutput) new JavaObjectOutput(out, true);
-	}
+    public ObjectOutput serialize(OutputStream out) throws IOException {
+        return new JavaObjectOutput(out, true);
+    }
 
-	public ObjectInput deserialize(InputStream is) throws IOException {
-		return (ObjectInput) new JavaObjectInput(is, true);
-	}
+    public ObjectInput deserialize(InputStream is) throws IOException {
+        return new JavaObjectInput(is, true);
+    }
 
 }

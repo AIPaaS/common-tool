@@ -1,4 +1,4 @@
-package test.com.ai.paas.util;
+package com.ai.paas.util;
 
 import static org.junit.Assert.*;
 
@@ -13,8 +13,7 @@ import org.junit.Test;
 
 import com.ai.paas.serialize.TypeGetter;
 import com.ai.paas.util.JsonUtil;
-
-import test.com.ai.paas.util.domain.User;
+import com.ai.paas.util.domain.User;
 
 public class JsonUtilTest {
 

@@ -1,4 +1,4 @@
-package test.com.ai.paas.util;
+package com.ai.paas.util;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -3,37 +3,45 @@ package com.ai.paas.util;
 import java.util.UUID;
 
 import org.apache.commons.text.RandomStringGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UUIDTool {
-	private static RandomStringGenerator uuidGenerator = new RandomStringGenerator.Builder().withinRange('0', 'z')
-			.filteredBy(t -> t >= '0' && t <= '9', t -> t >= 'A' && t <= 'Z').build();
 
-	private UUIDTool() {
+    private static final Logger log = LoggerFactory.getLogger(UUIDTool.class);
 
-	}
+    private static RandomStringGenerator uuidGenerator = new RandomStringGenerator.Builder().withinRange('0', 'z')
+            .filteredBy(t -> t >= '0' && t <= '9', t -> t >= 'A' && t <= 'Z').build();
 
-	public static String genId32() {
-		return UUID.randomUUID().toString().replaceAll("\\-", "").toUpperCase();
-	}
+    private UUIDTool() {
 
-	public static String genShortId() {
-		return uuidGenerator.generate(8);
-	}
+    }
 
-	public static String genShortId(int len) {
-		return uuidGenerator.generate(len);
-	}
+    public static String genId32() {
+        return UUID.randomUUID().toString().replaceAll("\\-", "").toUpperCase();
+    }
 
-	public static int getId() {
-		return Math.abs(genId32().hashCode());
-	}
+    public static String genShortId() {
+        return uuidGenerator.generate(8);
+    }
 
-	public static void main(String[] args) {
-		System.out.println(UUIDTool.genId32());
-		System.out.println(UUIDTool.genShortId());
-		System.out.println(UUIDTool.genShortId(16));
-		System.out.println(UUIDTool.genShortId(10));
-		System.out.println(UUIDTool.genShortId(6));
-		System.out.println(UUIDTool.getId());
-	}
+    public static String genShortId(int len) {
+        return uuidGenerator.generate(len);
+    }
+
+    public static int getId() {
+        int hashCode = genId32().hashCode();
+        if (hashCode == Integer.MIN_VALUE)
+            return Integer.MAX_VALUE;
+        return Math.abs(hashCode);
+    }
+
+    public static void main(String[] args) {
+        log.info(UUIDTool.genId32());
+        log.info(UUIDTool.genShortId());
+        log.info(UUIDTool.genShortId(16));
+        log.info(UUIDTool.genShortId(10));
+        log.info(UUIDTool.genShortId(6));
+        log.info("{}", UUIDTool.getId());
+    }
 }
