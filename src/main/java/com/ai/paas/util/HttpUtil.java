@@ -6,15 +6,12 @@ import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.ManagerFactoryParameters;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpEntity;
@@ -293,7 +290,7 @@ public class HttpUtil {
                 HttpEntity entity = response.getEntity();
                 return EntityUtils.toString(entity, Constant.CHARSET_UTF8);
             } else {
-                throw new GeneralRuntimeException("" + response.getStatusLine().getStatusCode(),
+                throw new GeneralRuntimeException("http status code: " + response.getStatusLine().getStatusCode(),
                         response.getStatusLine().toString());
             }
         } catch (Exception e) {
@@ -403,20 +400,10 @@ public class HttpUtil {
                         throw new IllegalArgumentException("checkServerTrusted: X509Certificate is empty");
                     }
 
-                    if (!(null != authType && authType.equalsIgnoreCase("RSA"))) {
-
-                        throw new CertificateException("checkServerTrusted: AuthType is not RSA");
+                    if (!(null != authType && ( authType.equalsIgnoreCase("RSA") || authType.contains("RSA")))) {
+                        log.error("checkServerTrusted: AuthType is not RSA,{}", authType);
+                        throw new CertificateException("checkServerTrusted: AuthType is not RSA, it is "+authType);
                     }
-                    try {
-                        TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
-                        tmf.init((ManagerFactoryParameters) null);
-                        for (TrustManager trustManager : tmf.getTrustManagers()) {
-                            ((X509TrustManager) trustManager).checkServerTrusted(chain, authType);
-                        }
-                    } catch (Exception e) {
-                        throw new CertificateException(e);
-                    }
-
                     try {
                         chain[0].checkValidity();
                     } catch (Exception e) {
@@ -431,7 +418,7 @@ public class HttpUtil {
             };
             SSLContext sslcontext = SSLContext.getInstance("TLSv1.2");
             sslcontext.init(null, new TrustManager[] { manager }, null);
-            sslsf = new SSLConnectionSocketFactory(sslcontext, new String[] { "TLSv1", "SSLv3" }, null,
+            sslsf = new SSLConnectionSocketFactory(sslcontext, new String[] { "TLSv1.2", "SSLv3" }, null,
                     SSLConnectionSocketFactory.getDefaultHostnameVerifier());
 
         } catch (GeneralSecurityException e) {
